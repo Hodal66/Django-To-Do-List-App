@@ -16,7 +16,9 @@
     <!-- Task List -->
     <ul>
         {% for task in tasks %}
-            <li>{{ task.title }} - {% if task.completed %}✅{% else %}❌{% endif %}</li>
+            <li>{{ task.title }} - {% if task.completed %}✅{% else %}❌{% endif %}
+                 <a href="{% url 'delete' task.id %}">🗑 Delete</a>
+            </li>
         {% endfor %}
     </ul>
 </body>
