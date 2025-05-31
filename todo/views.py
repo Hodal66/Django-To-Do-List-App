@@ -3,6 +3,8 @@ from .models import Task
 from .forms import TaskForm
 from django.shortcuts import get_object_or_404
 
+#create contents
+
 def home(request):
     tasks = Task.objects.all()
     form = TaskForm()
@@ -15,11 +17,14 @@ def home(request):
 
     return render(request, 'home.html', {'tasks': tasks, 'form': form})
 
+#Delete Contents
 
 def delete_task(request, task_id):
     task = get_object_or_404(Task, id=task_id)
     task.delete()
     return redirect('/')
+
+# Update Contents
 
 def update_task(request, task_id):
     task = get_object_or_404(Task, id=task_id)
@@ -32,3 +37,11 @@ def update_task(request, task_id):
             return redirect('/')
 
     return render(request, 'update.html', {'form': form})
+
+#Toggle Complete
+
+def toggle_complete(request, task_id):
+    task = get_object_or_404(Task, id=task_id)
+    task.completed = not task.completed  # Toggle status
+    task.save()
+    return redirect('/')
